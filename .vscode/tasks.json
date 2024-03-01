@@ -1,0 +1,39 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "make",
+      "args": [
+        "-C",
+        "build",
+        "VERBOSE=1"
+      ],
+      "dependsOn": "configure"
+    },
+    {
+      "label": "configure",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-S",
+        ".",
+        "-B",
+        "build"
+      ]
+    },
+    {
+      "label": "protobuff",
+      "type": "shell",
+      "command": "protoc",
+      "args": [
+        "--python_out=test_client",
+        "protocol.proto"
+      ]
+    },
+  ]
+}
